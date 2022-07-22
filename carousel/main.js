@@ -9,33 +9,16 @@ const images = [
 let currentIndex = undefined;
 let thumbnailElements = [];
 
-let imagePreview = document.querySelector('.image');
+let imageContainer = document.querySelector('.image');
 const previewPanel = document.querySelector('.preview-panel');
 const nextButton = document.querySelector('.next');
 const prevButton = document.querySelector('.prev');
 const thumbnailPanel = document.querySelector('.thumbnail-panel');
 
-const previewMoveLeft = [
-    {transform: 'translateX(0%)'},
-    {transform: 'translateX(-100%)'},
-];
-
-const previewMoveRight = [
-    {transform: 'translateX(0%)'},
-    {transform: 'translateX(100%)'},
-];
-
-const timing = {
-    duration: 1000,
-    iterations: 1,
-    fill: 'both',
-}
-
-function imagePreviewElement(imageLink, inLeft = false) {
+function imageContainerElement(imageLink, inLeft = false) {
     const element = document.createElement('div');
-    element.classList.add('image');
     element.style.backgroundImage = `url(${imageLink})`;
-    element.style.left = inLeft ? '-100%' : '100%';
+    element.classList.add('image', inLeft ? 'left-container' : 'right-container');
     return element;
 }
 
@@ -44,18 +27,20 @@ function loadImage(index) {
         return;
     }
 
-    const newPreview = imagePreviewElement(images[index], index < currentIndex);
-    previewPanel.appendChild(newPreview);
+    const isMoveFromLeft = index < currentIndex;
+    const newImageContainer = imageContainerElement(images[index], isMoveFromLeft);
+    previewPanel.appendChild(newImageContainer);
     
-    const animate = index < currentIndex ? previewMoveRight : previewMoveLeft;
-    imagePreview.animate(animate, timing);
-    newPreview.animate(animate, timing);
+    setTimeout(() => {
+        imageContainer.classList.add(isMoveFromLeft? 'right-container' : 'left-container');
+        newImageContainer.classList.remove('left-container', 'right-container');
+    })
 
     setTimeout(() => {
-        imagePreview.remove();
-        imagePreview = newPreview;
+        imageContainer.remove();
+        imageContainer = newImageContainer;
         updateThumbnail(index);
-    }, timing.duration);
+    }, 1000);
 }
 
 function updateThumbnail(index) {
