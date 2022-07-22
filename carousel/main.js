@@ -8,6 +8,7 @@ const images = [
 ];
 let currentIndex = undefined;
 let thumbnailElements = [];
+let inAnimation = false;
 
 let imageContainer = document.querySelector('.image');
 const previewPanel = document.querySelector('.preview-panel');
@@ -26,6 +27,11 @@ function loadImage(index) {
     if (index === currentIndex) {
         return;
     }
+    if (inAnimation) {
+        return;
+    } else {
+        inAnimation = true;
+    }
 
     const isMoveFromLeft = index < currentIndex;
     const newImageContainer = imageContainerElement(images[index], isMoveFromLeft);
@@ -34,13 +40,14 @@ function loadImage(index) {
     setTimeout(() => {
         imageContainer.classList.add(isMoveFromLeft? 'right-container' : 'left-container');
         newImageContainer.classList.remove('left-container', 'right-container');
-    })
+    }, 50);
 
     setTimeout(() => {
         imageContainer.remove();
         imageContainer = newImageContainer;
         updateThumbnail(index);
-    }, 1000);
+        inAnimation = false;
+    }, 500);
 }
 
 function updateThumbnail(index) {

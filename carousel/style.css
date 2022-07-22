@@ -11,18 +11,17 @@
     width: 100%;
     height: 80%;
     position: relative;
-    /* overflow: hidden; */
+    overflow: hidden;
 }
 
 .image {
-    background-color: aquamarine;
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0px;
     background-size: cover;
     background-position: center;
-    transition: left 1s;
+    transition: left 500ms;
 }
 
 .left-container {
