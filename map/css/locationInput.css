@@ -1,0 +1,34 @@
+.location-input {
+    position: relative;
+}
+
+.location-input input {
+    width: 100%;
+    height: 100%;
+    padding-left: 15px;
+
+    border: 2px solid #ccc;
+}
+
+.location-input ul {
+    position: absolute;
+    visibility: hidden;
+    width: 100%;
+    padding: 10px;
+
+    list-style-type: none;
+    background-color: white;
+}
+
+.location-input ul li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.location-input ul li:hover {
+    background-color:gainsboro;
+}
+
+.location-input .show {
+    visibility: visible;
+}

@@ -16,10 +16,10 @@ const nextButton = document.querySelector('.next');
 const prevButton = document.querySelector('.prev');
 const thumbnailPanel = document.querySelector('.thumbnail-panel');
 
-function imageContainerElement(imageLink, inLeft = false) {
+function createImageContainerElement(imageLink, inLeftSide) {
     const element = document.createElement('div');
     element.style.backgroundImage = `url(${imageLink})`;
-    element.classList.add('image', inLeft ? 'left-container' : 'right-container');
+    element.classList.add('image', inLeftSide ? 'left-container' : 'right-container');
     return element;
 }
 
@@ -27,6 +27,7 @@ function loadImage(index) {
     if (index === currentIndex) {
         return;
     }
+    
     if (inAnimation) {
         return;
     } else {
@@ -34,7 +35,7 @@ function loadImage(index) {
     }
 
     const isMoveFromLeft = index < currentIndex;
-    const newImageContainer = imageContainerElement(images[index], isMoveFromLeft);
+    const newImageContainer = createImageContainerElement(images[index], isMoveFromLeft);
     previewPanel.appendChild(newImageContainer);
     
     setTimeout(() => {
@@ -58,18 +59,12 @@ function updateThumbnail(index) {
 }
 
 function loadNextImage() {
-    let nextIndex = currentIndex + 1;
-    if (nextIndex >= images.length) {
-        nextIndex = 0;
-    }
+    const nextIndex = currentIndex < images.length - 1 ? currentIndex + 1 : 0;
     loadImage(nextIndex);
 }
 
 function loadPrevImage() {
-    let prevIndex = currentIndex - 1;
-    if (prevIndex < 0) {
-        prevIndex = images.length - 1;
-    }
+    const prevIndex = currentIndex > 0 ? currentIndex - 1 : images.length - 1;
     loadImage(prevIndex);
 }
 

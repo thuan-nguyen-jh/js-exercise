@@ -1,0 +1,25 @@
+@import url('./reset.css');
+@import url('./locationInput.css');
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.search-bar {
+    position: absolute;
+    top: 50px;
+    left: 0px;
+    right: 0px;
+    margin: 0px auto;
+    
+    width: 70%;
+    height: 40px;
+}
