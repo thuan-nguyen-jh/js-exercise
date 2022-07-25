@@ -35,6 +35,18 @@ function removeDuplicate5(array) {
     return Array.from(new Set(array));
 }
 
+function removeDuplicate6(array) {
+    result = [];
+    checker = {};
+    for (element of array) {
+        if (checker[element] === undefined) {
+            result.push(element);
+            checker[element] = true;
+        }
+    }
+    return result;
+}
+
 array = [1, 2, 2, 3, 4, 4, 4, 5, 6];
 
 functions = [
@@ -43,6 +55,7 @@ functions = [
     removeDuplicate3,
     removeDuplicate4,
     removeDuplicate5,
+    removeDuplicate6,
 ];
 for (f of functions) {
     console.log(f(array));

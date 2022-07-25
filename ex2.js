@@ -26,5 +26,28 @@ function findMostRepetition(array) {
     return findAllKeyInMap(frequency, maxFrequency);
 }
 
+function findMostRepetition1(array) {
+    const frequency = {};
+    let maxFrequency = [];
+    let maxValue = 0;
+
+    for (element of array) {
+        if (frequency[element] === undefined) {
+            frequency[element] = 1;
+        } else {
+            frequency[element]++;
+        }
+
+        if (frequency[element] > maxValue) {
+            maxValue = frequency[element];
+            maxFrequency = [element];
+        } else if (frequency[element] === maxValue) {
+            maxFrequency.push(element);
+        }
+    }
+    return maxFrequency;
+}
+
 const array = [1, 2, 2, 2, 3, 4, 4, 4, 5, 6];
 console.log(findMostRepetition(array));
+console.log(findMostRepetition1(array));
