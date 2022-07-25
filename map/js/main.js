@@ -2,19 +2,19 @@ globalThis.MAPBOX_ACCESS_TOKEN = 'pk.eyJ1Ijoibm10aHVhbiIsImEiOiJjbDV5ODN5ZGsxMTN
 
 import Map from './mapbox.js';
 import LocationInput from './locationInput.js';
-import MapboxAPI from './mapboxApi.js';
+import Navigation from './navigation.js';
 
 const map = new Map('map', [106.66, 10.76], 11);
-const locationInput = new LocationInput(document.querySelector('.search-bar'));
-locationInput.onClickItem = (event) => {
-    const element = event.target;
-    const coordinates = element.dataset.coordinates.split(',');
-    map.showDetail(coordinates, element.innerHTML);
+const locationInput = new LocationInput(document.querySelector('.search-bar'), map.showDetail.bind(map));
+const navigation = new Navigation(document.querySelector('.navigation'), map.showRoute.bind(map));
+navigation.onToggle = (isActive) => {
+    if (!isActive) {
+        map.removeRoute();
+    }
 }
-
-setTimeout(() => {
-    MapboxAPI.getRoute([106.66, 10.76], [107.66, 10.76])
-    .then(route => {
-        map.showRoute(route);
-    });
-}, 5000);
+map.onPopupButtonClick = (name, coordinates) => {
+    navigation.endInput.showData(name, coordinates);
+    if (!navigation.isActive) {
+        navigation.togglePanel();
+    }
+}

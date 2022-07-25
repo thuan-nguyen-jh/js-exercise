@@ -49,3 +49,11 @@ table {
 * {
     box-sizing: border-box;
 }
+
+html {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+strong {
+    font-weight: bold;
+}

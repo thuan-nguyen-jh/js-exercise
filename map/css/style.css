@@ -1,5 +1,6 @@
 @import url('./reset.css');
 @import url('./locationInput.css');
+@import url('./navigation.css');
 
 body {
     margin: 0;
@@ -11,6 +12,7 @@ body {
     top: 0;
     bottom: 0;
     width: 100%;
+    z-index: -1;
 }
 
 .search-bar {
@@ -19,7 +21,26 @@ body {
     left: 0px;
     right: 0px;
     margin: 0px auto;
+    z-index: 1;
     
     width: 70%;
     height: 40px;
 }
+
+.navigation {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+
+    width: 400px;
+}
+
+.popup button {
+    width: 100%;
+    height: 25px;
+    margin-top: 10px;
+    border: none;
+    background: gainsboro;
+    cursor: pointer;
+}
+

@@ -1,8 +1,52 @@
 import MapboxAPI from "./mapboxApi.js";
 
+class Popup {
+    element;
+    textElement;
+    buttonElement;
+    
+    name;
+    coordinates;
+    onNavigation;
+
+    constructor(name, coordinates, onNavigation) {
+        this.name = name;
+        this.coordinates = coordinates;
+        this.onNavigation = onNavigation;
+
+        this.element = document.createElement('div');
+        this.element.classList.add('popup');
+        this.textElement = this.createTextElement();
+        this.buttonElement = this.createButtonElement();
+        this.buttonElement.addEventListener('click', this.onClick.bind(this));
+
+        this.element.appendChild(this.textElement);
+        this.element.appendChild(this.buttonElement);
+    }
+
+    createTextElement() {
+        const textElement = document.createElement('p');
+        textElement.innerHTML = `<strong>${this.name}</strong><br>${this.coordinates}`;
+        return textElement;
+    }
+
+    createButtonElement() {
+        const buttonElement = document.createElement('button');
+        buttonElement.innerText = 'Navigation';
+        buttonElement.classList.add('submit-btn');
+        return buttonElement;
+    }
+
+    onClick(event) {
+        if (typeof this.onNavigation === 'function') {
+            this.onNavigation(this.name, this.coordinates);
+        }
+    }
+}
 export default class Map {
     map;
     popup;
+    onPopupButtonClick;
 
     constructor(mapId, center, zoom) {
         mapboxgl.accessToken = MAPBOX_ACCESS_TOKEN;
@@ -42,17 +86,18 @@ export default class Map {
             }
             name = feature.name;
             coordinates = feature.coordinates;
-            console.log(name, coordinates);
         }
 
+        const popupContent = new Popup(name, coordinates, this.onPopupButtonClick)
         this.popup = new mapboxgl.Popup()
             .setLngLat(coordinates)
-            .setHTML(`<h1>${name}</h1>`)
+            .setDOMContent(popupContent.element)
             .addTo(this.map);
         this.moveTo(coordinates);
     }
 
     showRoute(coordinates) {
+        this.removeRoute();
         this.map.addLayer({
             id: "route",
             type: "line",
@@ -73,6 +118,27 @@ export default class Map {
             paint: {
                 "line-color": "#888",
                 "line-width": 8,
+            },
+        });
+        this.moveToBoundary(coordinates);
+    }
+
+    removeRoute() {
+        if (this.map.getLayer("route")) {
+            this.map.removeLayer("route");
+            this.map.removeSource("route");
+        }
+    }
+
+    moveToBoundary(coordinates) {
+        const boundary = new mapboxgl.LngLatBounds();
+        coordinates.forEach((coordinate) => boundary.extend(coordinate));
+        this.map.fitBounds(boundary, {
+            padding: {
+                top: 50,
+                bottom: 50,
+                left: 50,
+                right: 50,
             },
         });
     }

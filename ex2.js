@@ -1,5 +1,5 @@
 function getFrequency(array) {
-    let frequency = new Map();
+    const frequency = new Map();
     for (element of array) {
         if (frequency.has(element)) {
             frequency.set(element, frequency.get(element) + 1);

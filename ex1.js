@@ -1,5 +1,5 @@
 function removeDuplicate1(array) {
-    result = [];
+    const result = [];
     for (element of array) {
         if (result.indexOf(element) === -1) {
             result.push(element);
@@ -9,7 +9,7 @@ function removeDuplicate1(array) {
 }
 
 function removeDuplicate2(array) {
-    result = [];
+    const result = [];
     array.forEach((element) => {
         if (result.indexOf(element) === -1) {
             result.push(element);

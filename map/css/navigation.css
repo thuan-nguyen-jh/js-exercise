@@ -1,0 +1,51 @@
+.navigation {
+    position: absolute;
+}
+
+.navigation .toggle-btn {
+    width: 40px;
+    height: 40px;
+    
+    background-image: url('../assert/sign-turn-left.svg');
+    background-color: white;
+    background-size: 30px;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    cursor: pointer;
+    border: 2px solid gainsboro;
+}
+
+.navigation .toggle-btn.active {
+    background-image: url('../assert/sign-turn-left-fill.svg');
+}
+
+.navigation .panel {
+    visibility: hidden;
+    margin-top: 20px;
+    padding: 30px;
+    background-color: white;
+}
+
+.navigation .panel .location-input {
+    height: 30px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.navigation .panel p {
+    margin-bottom: 5px;
+}
+
+.navigation .panel button {
+    width: 40%;
+    height: 30px;
+
+    margin-top: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.navigation .panel.show {
+    visibility: visible;
+}

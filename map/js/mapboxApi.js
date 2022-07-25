@@ -36,7 +36,6 @@ export default class MapboxAPI {
         try {
             const response = await this.reverseGeocode(coordinates);
             const data = await response.json();
-            console.log(data);
             const firstFeature = data.features[0];
             return {
                 name: firstFeature.place_name,
