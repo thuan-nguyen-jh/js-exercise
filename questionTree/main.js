@@ -1,0 +1,53 @@
+import QuestionTree from "./questionTree.js";
+
+const data = `
+{
+    "beginNodeId": "start",
+    "nodes": {
+        "start": {
+            "id": "start",
+            "text": "Do you have free time?",
+            "answers": {
+                "Yes": "chocolate",
+                "No": "milk"
+            }
+        },
+        "chocolate": {
+            "id": "chocolate",
+            "text": "Do you like chocolate?",
+            "answers": {
+                "Yes": "love_chocolate",
+                "No": "milk"
+            }
+        },
+        "milk": {
+            "id": "milk",
+            "text": "Do you like milk?",
+            "answers": {
+                "Yes": "love_milk",
+                "No": "nothing"
+            }
+        },
+        "love_chocolate": {
+            "id": "love_chocolate",
+            "text": "You are a chocolate lover!"
+        },
+        "love_milk": {
+            "id": "love_milk",
+            "text": "You are a milk lover!"
+        },
+        "nothing": {
+            "id": "nothing",
+            "text": "You are a nothing!"
+        }
+    }
+}
+`;
+
+const questionTree = new QuestionTree(JSON.parse(data), document.getElementById("question-container"));
+const cancelBtn = document.getElementById("cancel-btn");
+cancelBtn.addEventListener("click", () => {
+    questionTree.restart();
+});
+
+questionTree.travel();
